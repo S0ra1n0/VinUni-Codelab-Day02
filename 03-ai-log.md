@@ -1,4 +1,6 @@
 # 03 — AI Collaboration Log & Engineering Reflection
+**Họ tên:** Nguyễn Hoàng trung
+**MSSV:** 2A202603826
 **Lab:** Lab 02 — AI Product Scoping (Vin Smart Future)
 
 ---
