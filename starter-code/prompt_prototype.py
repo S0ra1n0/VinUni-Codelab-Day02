@@ -13,8 +13,17 @@ Instructions:
 import os
 import sys
 from typing import Any
-from dotenv import load_dotenv
-load_dotenv()
+
+# Force UTF-8 output so emoji/Vietnamese print correctly when stdout is a pipe on Windows
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
+    sys.stderr.reconfigure(encoding="utf-8")
+
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass
 
 # Standard Model Identifier
 GEMINI_MODEL = "gemini-3.5-flash"
@@ -66,7 +75,6 @@ def evaluate_prompt(user_input: str) -> str:
         config=config
     )
     return response.text or ""
-    raise NotImplementedError("Implement evaluate_prompt")
 
 
 # ===========================================================================
