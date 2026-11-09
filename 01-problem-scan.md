@@ -1,126 +1,74 @@
-# 01 — Problem Scan & Quick Cards
+# 01 — Problem Scan
 
-**Thành viên:** Lê Ngọc Khánh — lekhanh2k5@gmail.com
+# 🔍 Phase 1 — SCAN
 
-> Các con số thời gian và khối lượng trong file này là **ước tính** dựa trên quan sát và giả định hợp lý, chưa được đo thực tế. Cần xác lập baseline trước khi dùng cho quyết định đầu tư.
+| #   | Subsidiary | Lens               | Mô tả ngắn bài toán                                                                                                                                                                                                                           |
+| --- | ---------- | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | Xanh SM    | Pain từ người khác | Xử lý khiếu nại **đồ thất lạc trên xe**: nhân viên CSKH phải tra lịch sử chuyến, gọi tài xế xác nhận, hẹn lịch trả đồ thủ công (~20 phút/vụ; giả định 150 vụ/ngày ≈ 50 giờ công/ngày), khách phàn nàn vì chờ lâu.                             |
+| 2   | Xanh SM    | Lặp lại            | **Kiểm tra hồ sơ tuyển tài xế** (bằng lái, lý lịch tư pháp, giấy khám sức khỏe): nhân viên tuyển dụng đối chiếu từng giấy tờ bằng mắt (10–15 phút/hồ sơ), mùa cao điểm tồn đọng khiến onboarding kéo dài 5–7 ngày, thiếu tài xế giờ cao điểm. |
+| 3   | Xanh SM    | Tốn thời gian      | **Xử lý tranh chấp cước/phụ phí** (khách nghi tài xế đi đường vòng, tính sai phí cầu đường): CSKH mở GPS trace so với tuyến tối ưu (10–15 phút/vụ), giả định ~20% vụ hoàn tiền sai (thừa hoặc thiếu).                                         |
+| 4   | Xanh SM    | AI có thể tốt hơn  | **Phản hồi đánh giá 1–2 sao trên app**: CSKH trả lời bằng mẫu câu rập khuôn, chậm 24–48 giờ, không phân loại được nguyên nhân gốc (tài xế, xe, app, giá).                                                                                     |
+| 5   | Xanh SM    | Tốn thời gian      | **Phân tích báo cáo va chạm giao thông**: chuyên viên an toàn đọc lời khai tài xế, ảnh hiện trường, video camera hành trình để xác định lỗi và lập hồ sơ bảo hiểm (30–45 phút/vụ), hồ sơ bồi thường chậm.                                     |
 
----
-
-## 🔍 Phase 1 — SCAN
-
-| # | Subsidiary | Lens | Mô tả ngắn bài toán |
-|---|------------|------|---------------------|
-| 1 | **VinFast** | AI-upgrade | Khách mô tả lỗi xe bằng tiếng Việt tự do (vd: *"đi qua gờ giảm tốc bánh trước kêu cụp cụp"*) qua hotline/app. CSKH ghi chép thủ công, cố vấn dịch vụ phải gọi lại hỏi thêm rồi mới phân loại được nhóm lỗi và mức ưu tiên. |
-| 2 | **Vinhomes** | Lặp lại | Hàng trăm phản ánh mỗi ngày trên App Vinhomes Resident (mất nước, hỏng đèn hành lang, ồn ào) được nhân viên đọc và chuyển tay đến đúng ban quản lý tòa nhà. |
-| 3 | **Vinmec** | Tốn thời gian | Bác sĩ mất 20–30 phút/bệnh nhân để viết tóm tắt xuất viện từ bệnh án điện tử, xét nghiệm và ghi chú lâm sàng. |
-| 4 | **Vinpearl** | Pain từ người khác | Review xấu trên Booking/Agoda/Google Maps (*"phòng bẩn"*, *"nhân viên thái độ"*) chỉ được đọc theo tuần, Manager biết quá muộn để xử lý khi khách còn lưu trú. |
-| 5 | **Xanh SM** | Lặp lại | Tài xế gửi tin nhắn mô tả điểm đón thực tế khác với ghim GPS (*"em đứng ở cổng sau, cạnh cây xăng"*), điều phối viên phải đọc và cập nhật lại điểm đón thủ công. |
-| 6 | **VinFast** | Lặp lại | Đối chiếu hằng tuần dữ liệu phiên sạc từ trụ sạc đối tác với hóa đơn gửi về phòng tài chính. |
+> Các con số có chữ "giả định" là ước lượng, không phải số liệu chính thức của Xanh SM.
 
 ---
 
-## 🃏 Phase 2 — QUICK-ASSESS: 3 Quick Problem Cards
+# 🃏 Phase 2 — QUICK-ASSESS
 
-Chọn top 3: **#1 (VinFast chẩn đoán sơ bộ)**, **#2 (Vinhomes phân loại phản ánh)**, **#4 (Vinpearl review khẩn cấp)**.
+**Top 3 được chọn:** #1 (Đồ thất lạc), #3 (Tranh chấp cước), #4 (Review 1–2 sao)
 
-### Card #1 — VinFast: Phân loại sơ bộ lỗi xe từ mô tả tiếng Việt
-
-```text
-┌─────────────────────────────────────────────────────────────┐
-│ QUICK PROBLEM CARD #1                                       │
-│                                                             │
-│ Bài toán: Phân loại sơ bộ nhóm lỗi & mức ưu tiên an toàn    │
-│ từ mô tả tiếng Việt tự do của khách trước khi xe vào xưởng. │
-│ Công ty thành viên: [x] VinFast                             │
-│                                                             │
-│ Ai đang đau (Actor)? Cố vấn dịch vụ (CVDV) tại xưởng,       │
-│ nhân viên CSKH hotline, và khách hàng (chờ phản hồi lâu).   │
-│                                                             │
-│ Workflow thủ công hiện tại:                                 │
-│   1. Khách gọi hotline/chat app mô tả lỗi                   │
-│   → 2. CSKH ghi chép tự do vào ticket CRM                   │
-│   → 3. Ticket chờ trong hàng đợi, CVDV gọi lại hỏi thêm     │
-│   → 4. CVDV tra tài liệu kỹ thuật, phân loại, đặt lịch      │
-│   → 5. KTV kiểm tra xe thực tế                              │
-│                                                             │
-│ Bước nào tốn nhất? Bước 3–4 (⏱ ~18 phút xử lý/ticket,       │
-│ cộng thời gian chờ hàng đợi trung bình ~4 giờ)              │
-│ AI hỗ trợ ở bước nào? Bước 2–4: chuẩn hóa mô tả, gợi ý      │
-│ top-3 nhóm lỗi, cờ an toàn, câu hỏi bổ sung cần hỏi khách.  │
-│                                                             │
-│ Metric: Thời gian từ lúc tạo ticket → có phân loại sơ bộ    │
-│ giảm từ ~4 giờ ──> dưới 15 phút; top-3 đúng nhóm lỗi ≥ 95%. │
-│                                                             │
-│ Quick Architecture: [ ] No AI [ ] Rule [x] LLM [ ] Agent    │
-│ (kèm Rule-based safety gate chạy trước LLM)                 │
-└─────────────────────────────────────────────────────────────┘
-```
-
-### Card #2 — Vinhomes: Phân loại & điều hướng phản ánh cư dân
-
-```text
-┌─────────────────────────────────────────────────────────────┐
-│ QUICK PROBLEM CARD #2                                       │
-│                                                             │
-│ Bài toán: Tự động phân loại phản ánh cư dân và chuyển đúng  │
-│ bộ phận/ban quản lý tòa nhà.                                │
-│ Công ty thành viên: [x] Vinhomes                            │
-│                                                             │
-│ Ai đang đau? Nhân viên CSKH trung tâm, cư dân chờ xử lý.    │
-│                                                             │
-│ Workflow thủ công hiện tại:                                 │
-│   1. Cư dân gửi phản ánh qua app (text + ảnh)               │
-│   → 2. CSKH đọc, xác định loại sự cố & tòa nhà              │
-│   → 3. Chuyển ticket cho BQL/kỹ thuật tòa nhà               │
-│   → 4. Trả lời cư dân bằng mẫu soạn sẵn                     │
-│                                                             │
-│ Bước nào tốn nhất? Bước 2 (⏱ ~5 phút/ticket, dồn vào cuối   │
-│ tuần, thời gian phản hồi đầu tiên có thể lên tới 12 giờ)    │
-│ AI hỗ trợ ở bước nào? Bước 2–4: phân loại + draft trả lời.  │
-│                                                             │
-│ Metric: 85% ticket được route đúng bộ phận trong < 1 phút;  │
-│ thời gian phản hồi đầu tiên < 30 phút.                      │
-│                                                             │
-│ Quick Architecture: [ ] No AI [x] Rule [x] LLM [ ] Agent    │
-│ (Rule cho form có chọn danh mục; LLM cho mô tả tự do)       │
-└─────────────────────────────────────────────────────────────┘
-```
-
-### Card #3 — Vinpearl: Phát hiện review khẩn cấp
-
-```text
-┌─────────────────────────────────────────────────────────────┐
-│ QUICK PROBLEM CARD #3                                       │
-│                                                             │
-│ Bài toán: Phát hiện sớm review tiêu cực cần xử lý ngay khi  │
-│ khách vẫn đang lưu trú tại resort.                          │
-│ Công ty thành viên: [x] Khác: Vinpearl                      │
-│                                                             │
-│ Ai đang đau? Guest Relations Manager, khách lưu trú.        │
-│                                                             │
-│ Workflow thủ công hiện tại:                                 │
-│   1. Nhân viên mở từng nền tảng (Booking/Agoda/Google)      │
-│   → 2. Đọc review mới, copy sang file tổng hợp tuần         │
-│   → 3. Manager đọc báo cáo tuần, giao bộ phận xử lý         │
-│                                                             │
-│ Bước nào tốn nhất? Bước 1–2 (⏱ ~2 giờ/ngày/resort), và độ   │
-│ trễ đến 7 ngày mới tới Manager.                             │
-│ AI hỗ trợ ở bước nào? Bước 2: phân loại mức độ khẩn cấp,    │
-│ chủ đề phàn nàn, tóm tắt 1 dòng.                            │
-│                                                             │
-│ Metric: Review khẩn cấp đến Manager trong < 2 giờ (từ ~7    │
-│ ngày); recall nhóm "khẩn cấp" ≥ 90%.                        │
-│                                                             │
-│ Quick Architecture: [ ] No AI [ ] Rule [x] LLM [ ] Agent    │
-└─────────────────────────────────────────────────────────────┘
-```
+**Lý do chọn / loại:** Chọn 3 bài có tần suất cao, quy trình rõ và lỗi AI có thể kiểm soát bằng bước duyệt của CSKH. Loại **#2** (hồ sơ tài xế) vì sai sót ảnh hưởng an toàn hành khách và cần đối chiếu giấy tờ gốc; loại **#5** (va chạm) vì kết luận lỗi có hệ quả pháp lý/bảo hiểm, phải do con người quyết định.
 
 ---
 
-## 🗳️ Lựa chọn để Deep-Dive
+## Card #1 — Xử lý khiếu nại đồ thất lạc trên xe
 
-Chọn **Card #1 — VinFast phân loại sơ bộ lỗi xe** để Deep-Dive (xem `02-deep-dive-report.md`).
+| Mục                             | Nội dung                                                                                                                                                                                                                     |
+| ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Bài toán (1 câu)**            | Khách quên đồ trên xe phải chờ hàng giờ vì CSKH tra chuyến và gọi tài xế thủ công.                                                                                                                                           |
+| **Công ty thành viên**          | [x] Xanh SM                                                                                                                                                                                                                  |
+| **Ai đang đau (Actor)?**        | CSKH tổng đài; khách mất đồ; tài xế bị gọi giữa cuốc.                                                                                                                                                                        |
+| **Workflow thủ công hiện tại**  | 1. Khách báo mất đồ, mô tả mơ hồ (⏱ 3') → 2. 🔴 Tra lịch sử chuyến tìm tài xế (⏱ 6') → 3. 🔴🔄 Gọi tài xế xác nhận, thường phải gọi lại (⏱ 7') → 4. 🔄 Hẹn trả đồ (⏱ 3') → 5. Cập nhật ticket (⏱ 1'). **Tổng ≈ 20 phút/vụ.** |
+| **Bước tốn thời gian/lỗi nhất** | Bước 2–3 (⏱ ~13 phút): tra nhầm chuyến, tài xế không nghe máy.                                                                                                                                                               |
+| **AI nhảy vào ở bước nào?**     | LLM trích thông tin từ lời khách → Rule gợi ý top 3 chuyến khớp; LLM soạn tin cho tài xế và tin hẹn trả đồ `[DRAFT_ONLY]`.                                                                                                   |
+| **Metric thành công (có số)**   | **20 ──> dưới 5 phút/vụ**; **≥ 90%** vụ có chuyến đúng trong top 3.                                                                                                                                                          |
+| **Quick Architecture**          | [ ] No AI [x] Rule [x] LLM [ ] Agent — Rule tra chuyến, LLM xử lý ngôn ngữ.                                                                                                                                                  |
+| **Ranh giới**                   | **Cấm:** lộ SĐT/vị trí tài xế, hứa bồi thường, tự gửi tin. **Cần duyệt:** CSKH xác nhận chuyến; đồ giá trị cao → giám sát viên.                                                                                              |
+| **Giả định số liệu**            | 150 vụ/ngày × 20 phút = **50 giờ công/ngày**.                                                                                                                                                                                |
 
-* **Vì sao chọn #1:** Mô tả lỗi của khách là ngôn ngữ tự nhiên rất đa dạng (từ tượng thanh, tiếng lóng, vùng miền) → đây là chỗ rule-based keyword làm kém và LLM thực sự có giá trị. Đồng thời có yếu tố an toàn rõ ràng, buộc phải thiết kế Operational Boundary và HITL nghiêm túc.
-* **Vì sao chưa chọn #2:** Một phần lớn ticket Vinhomes đã có danh mục chọn sẵn trong form → rule-based router giải quyết được phần lớn trước, LLM chỉ cần cho phần còn lại. Giá trị cận biên của AI thấp hơn.
-* **Vì sao chưa chọn #3:** Tác vụ back-office, không có rủi ro vận hành thời gian thực; đồng thời phụ thuộc vào việc thu thập review từ nền tảng bên thứ ba (điều khoản API/scraping cần làm rõ trước).
+---
+
+## Card #2 — Xử lý tranh chấp cước / phụ phí
+
+| Mục                             | Nội dung                                                                                                                                                                                    |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Bài toán (1 câu)**            | Khiếu nại cước (đi đường vòng, sai phí cầu đường) được đối chiếu GPS thủ công, chậm và hoàn tiền không nhất quán.                                                                           |
+| **Công ty thành viên**          | [x] Xanh SM                                                                                                                                                                                 |
+| **Ai đang đau (Actor)?**        | CSKH; khách chờ hoàn tiền; tài xế bị nghi oan.                                                                                                                                              |
+| **Workflow thủ công hiện tại**  | 1. Nhận khiếu nại (⏱ 2') → 2. 🔴 So GPS trace với tuyến ngắn nhất (⏱ 6') → 3. 🔴 Tính chênh lệch theo biểu phí (⏱ 4') → 4. 🔄 Quyết định hoàn tiền, phản hồi (⏱ 3'). **Tổng ≈ 15 phút/vụ.** |
+| **Bước tốn thời gian/lỗi nhất** | Bước 2–3 (⏱ ~10 phút): so bằng mắt, ~20% vụ hoàn tiền sai.                                                                                                                                  |
+| **AI nhảy vào ở bước nào?**     | Rule so lộ trình và tính tiền; LLM chỉ soạn lời giải thích `[DRAFT_ONLY]`.                                                                                                                  |
+| **Metric thành công (có số)**   | **15 ──> dưới 3 phút/vụ**; hoàn tiền sai **~20% ──> dưới 5%**.                                                                                                                              |
+| **Quick Architecture**          | [ ] No AI [x] Rule [x] LLM [ ] Agent — Rule là chính vì tính tiền phải chính xác tuyệt đối.                                                                                                 |
+| **Ranh giới**                   | **Cấm:** LLM tự tính tiền, kết luận tài xế gian lận. **Cần duyệt:** mọi phản hồi; hoàn trên 100.000đ → giám sát viên.                                                                       |
+| **Giả định số liệu**            | 120 vụ/ngày × 15 phút = **30 giờ công/ngày**.                                                                                                                                               |
+
+---
+
+## Card #3 — Phản hồi đánh giá 1–2 sao trên app
+
+| Mục                             | Nội dung                                                                                                                                                                 |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Bài toán (1 câu)**            | Review 1–2 sao được trả lời chậm (24–48 giờ), rập khuôn, không phân loại nguyên nhân.                                                                                    |
+| **Công ty thành viên**          | [x] Xanh SM                                                                                                                                                              |
+| **Ai đang đau (Actor)?**        | CSKH; khách không hài lòng; bộ phận chất lượng tài xế.                                                                                                                   |
+| **Workflow thủ công hiện tại**  | 1. Đọc review (⏱ 1') → 2. 🔴 Đoán nguyên nhân: tài xế/xe/app/giá (⏱ 3') → 3. 🔄 Tra chuyến liên quan (⏱ 3') → 4. 🔴 Chọn mẫu câu, gửi (⏱ 3'). **Tổng ≈ 10 phút/review.** |
+| **Bước tốn thời gian/lỗi nhất** | Bước 2 và 4 (⏱ ~6 phút): phân loại cảm tính, trả lời rập khuôn.                                                                                                          |
+| **AI nhảy vào ở bước nào?**     | LLM phân loại nguyên nhân và soạn phản hồi `[DRAFT_ONLY]`; Rule ghép review với chuyến.                                                                                  |
+| **Metric thành công (có số)**   | **24–48 giờ ──> dưới 2 giờ**; **≥ 85%** review phân loại đúng.                                                                                                           |
+| **Quick Architecture**          | [ ] No AI [x] Rule [x] LLM [ ] Agent — LLM là chính (hiểu ngôn ngữ tự nhiên).                                                                                            |
+| **Ranh giới**                   | **Cấm:** tự gửi, hứa voucher, đổ lỗi tài xế. **Cần duyệt:** CSKH duyệt trước khi gửi; review về an toàn → chuyển bộ phận an toàn.                                        |
+| **Giả định số liệu**            | 240 review/ngày × 10 phút = **40 giờ công/ngày**.                                                                                                                        |
+
+---
