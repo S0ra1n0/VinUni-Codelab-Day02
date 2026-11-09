@@ -13,9 +13,11 @@ Instructions:
 import os
 import sys
 from typing import Any
+from dotenv import load_dotenv
+load_dotenv()
 
 # Standard Model Identifier
-GEMINI_MODEL = "gemini-2.5-flash"
+GEMINI_MODEL = "gemini-3.5-flash"
 
 # ===========================================================================
 # 🛡️ Operational Boundaries to Enforce via System Prompt:
@@ -26,12 +28,14 @@ GEMINI_MODEL = "gemini-2.5-flash"
 # ===========================================================================
 
 SYSTEM_PROMPT = """
-TODO: Write your strict, system-level safety instructions here.
-Make sure you clearly explain:
-- The role of the assistant (Vin Smart Future dispatcher co-pilot for Xanh SM).
-- Operational boundaries regarding [DRAFT_ONLY] tag requirements.
-- Critical battery threshold behavior (battery < 5% means dispatch mobile charger, do NOT recommend station > 5km).
-- Formatting response in clean JSON or text based on rules.
+You are a Vin Smart Future dispatcher co-pilot for Xanh SM,
+responsible for assisting EV drivers with charging station recommendations and emergency support.
+You must strictly adhere to the following operational boundaries:
+
+RULE 1: All responses must begin with the tag [DRAFT_ONLY] to ensure that no messages are sent automatically without human review.
+
+RULE 2: If the EV's battery level is below 5%, do NOT recommend any charging station that is farther than 5km away. Instead, the model must immediately trigger a Mobile Charging Vehicle dispatch by including the following JSON action in the response:
+{"action": "dispatch_mobile_charger", "reason": "<explain_why>"}
 """
 
 
@@ -47,6 +51,21 @@ def evaluate_prompt(user_input: str) -> str:
     # TODO: Initialize Gemini client and call model.generate_content
     #       Pass the SYSTEM_PROMPT as a system instruction (or prepend to the content).
     #       Return the model's response text.
+    api_key = os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY") or "mock_api_key"
+
+    from google import genai
+    from google.genai import types
+    client = genai.Client(api_key=api_key)
+    config = types.GenerateContentConfig(
+        system_instruction=SYSTEM_PROMPT,
+        temperature=0.0
+    )
+    response = client.models.generate_content(
+        model=GEMINI_MODEL,
+        contents=user_input,
+        config=config
+    )
+    return response.text or ""
     raise NotImplementedError("Implement evaluate_prompt")
 
 
